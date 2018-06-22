@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
+import Routes from './routes'
 
 Vue.use(VueResource)
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: Routes,
+  mode: 'history' // default is hash mode
+});
 
 // Custom directives for use v-theme for all component (Global)
 Vue.directive('theme', {
@@ -25,5 +33,6 @@ Vue.filter('snippet', (value) => {
 
 new Vue({
   el: '#app',
-  render: h => h(App)
+  render: h => h(App),
+  router: router
 })
