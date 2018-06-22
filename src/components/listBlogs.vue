@@ -1,16 +1,16 @@
 <template>
     <div id="show-blogs" v-theme:column="'wide'">
-        <h1>All Blog Articles - {{blogs.length}} </h1>
+        <h1>List Blog Titles - {{blogs.length}} </h1>
         <input type="text" v-model="search" placeholder="search blogs" />
         <div v-for="(blog, idx) in filteredBlogs" :key="idx" class="single-blog">
             <h2 v-rainbow>{{ blog.title | toUppercase }}</h2>
-            <article> {{ blog.body | snippet }} </article>
         </div>
     </div>
 </template>
 
 <script>
 import searchMixin from '../mixins/searchMixin'
+
 export default {
   data() {
     return {
@@ -27,10 +27,9 @@ export default {
         this.blogs = data.body.slice(0, 10);
       });
   },
-  computed: {
-  },
+  computed: {},
   filters: {
-    // define for use filter content in this component 
+    // define for use filter content in this component
     // blog.title | toUppercase
     toUppercase(value) {
       return value.toUpperCase();
@@ -38,14 +37,16 @@ export default {
   },
   directives: {
     // define for use v-rainbow in this component (local)
-    'rainbow': {
+    rainbow: {
       bind(el, binding, vnode) {
         el.style.color =
-          "#" + Math.random().toString(16).slice(2, 8);
+          "#" +
+          Math.random()
+            .toString(16)
+            .slice(2, 8);
       }
     }
   },
-  // declare mixin property for use filteredBlogs in its
   mixins: [searchMixin]
 };
 </script>
