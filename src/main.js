@@ -12,7 +12,7 @@ const router = new VueRouter({
   mode: 'history' // default is hash mode
 });
 
-// Custom directives for use v-theme for all component (Global)
+// Custom directives for use v-theme for all component (GLOBAL)
 Vue.directive('theme', {
   bind(el, binding, vnode) {
     if(binding.value=='wide') {
@@ -26,7 +26,7 @@ Vue.directive('theme', {
     }
   }
 });
-// Create filters for all component can use (global)
+// Create filters for all component can use (GLOBAL)
 Vue.filter('snippet', (value) => {
   return value.slice(0, 100) + '...';
 })
