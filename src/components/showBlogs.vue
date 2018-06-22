@@ -6,7 +6,7 @@
             <router-link v-bind:to="'/blog/' + blog.id">
               <h2 v-rainbow>{{ blog.title | toUppercase }}</h2>
             </router-link>
-            <article> {{ blog.body | snippet }} </article>
+            <article> {{ blog.content | snippet }} </article>
         </div>
     </div>
 </template>
@@ -23,11 +23,18 @@ export default {
   methods: {},
   created() {
     this.$http
-      .get("https://jsonplaceholder.typicode.com/posts")
+      .get("https://data-blog-firebase.firebaseio.com/posts.json")
       .then(function(data) {
-        // get 10 object
-        this.blogs = data.body.slice(0, 10);
-      });
+        return data.json();
+      }).then(function(data) {
+        var arrBlogs = [];
+        for (let key in data) {
+          data[key].id = key; // create attribute id for blog-object (a key from firebase) 
+          arrBlogs.push(data[key]);
+        }
+        console.log(arrBlogs);
+        this.blogs = arrBlogs;
+      })
   },
   computed: {
   },
@@ -52,7 +59,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #show-blogs {
   max-width: 800px;
   margin: 0 auto;
@@ -62,5 +69,14 @@ export default {
   margin: 20px 0;
   box-sizing: border-box;
   background: #eee;
+}
+#show-blogs a{
+    color: #444;
+    text-decoration: none;
+}
+input[type="text"]{
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 </style>

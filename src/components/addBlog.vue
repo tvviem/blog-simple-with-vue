@@ -55,11 +55,7 @@ export default {
   },
   methods: {
       addBlog() {
-          this.$http.post('https://jsonplaceholder.typicode.com/posts', {
-              title: this.blog.title,
-              body: this.blog.content,
-              userId: 1
-          }).then((data) => {
+          this.$http.post('https://data-blog-firebase.firebaseio.com/posts.json', this.blog).then((data) => {
               console.log(data);
               this.submitted = true;
           });
